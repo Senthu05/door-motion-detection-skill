@@ -32,7 +32,7 @@ class DoorMotionDetection(MycroftSkill):
 #         finally:
 #             self.schedule_repeating_event(self.handle_motion(),
 #                                           None, 0.1, 'check_motion')
-            self.register_intent(detection.motion.door, self.handle_detection_motion_door)
+            self.register_intent(detection.motion.door.intent, self.handle_detection_motion_door)
             my_setting = self.settings.get('my_setting')
 
     def handle_motion(self, message):
