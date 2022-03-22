@@ -1,5 +1,5 @@
 from mycroft import MycroftSkill, intent_file_handler
-from mycroft.messagebus.message import Message
+# from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
 
 import time
