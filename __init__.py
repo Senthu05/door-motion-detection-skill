@@ -1,5 +1,5 @@
 from mycroft import MycroftSkill, intent_file_handler
-# from mycroft.messagebus.message import Message
+from mycroft.messagebus.message import Message
 from mycroft.util import play_wav
 
 import time
@@ -30,6 +30,8 @@ class DoorMotionDetection(MycroftSkill):
         finally:
             self.schedule_repeating_event(self.handle_motion(),
                                           None, 0.1, 'motion')
+            my_setting = self.settings.get('my_setting')
+            self.register_intent(detection.motion.door, self.handle_detection_motion_door)
             
         def handle_motion(self, message):
         if GPIO.event_detected(MOTION):
@@ -54,7 +56,7 @@ class DoorMotionDetection(MycroftSkill):
             
             
 
-    @intent_file_handler('detection.motion.door.intent')
+   # @intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
