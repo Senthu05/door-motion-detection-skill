@@ -5,7 +5,7 @@ from mycroft.util import play_wav
 import time
 import RPi.GPIO as GPIO
 
-REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
+# REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
 # GPIO pins
 MOTION = 23
 LED = 25
