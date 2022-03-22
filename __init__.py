@@ -3,7 +3,7 @@ from mycroft import MycroftSkill, intent_file_handler
 # from mycroft.util import play_wav
 
 import time
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
 # GPIO pins
