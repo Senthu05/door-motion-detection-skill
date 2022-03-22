@@ -7,10 +7,10 @@ import RPi.GPIO as GPIO
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
 # GPIO pins
-MOTION = 23
-LED = 25
-detect_time = []
-MOTION_GAP = 60 # second
+# MOTION = 23
+# LED = 25
+# detect_time = []
+# MOTION_GAP = 60 # second
 
 
 class DoorMotionDetection(MycroftSkill):
