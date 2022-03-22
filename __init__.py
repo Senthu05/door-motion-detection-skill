@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
 
 # GPIO pins
-MOTION = 23
+MOTION = 18
 LED = 25
 detect_time = []
 MOTION_GAP = 60  # second
