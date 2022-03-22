@@ -63,7 +63,6 @@ class DoorMotionDetection(MycroftSkill):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
         time = ''
-        play_wav(REMINDER_PING)  # play the beep
         self.speak_dialog('detection.motion.door', data={
             'day': day,
             'day_of_time': day_of_time,
