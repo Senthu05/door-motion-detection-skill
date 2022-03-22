@@ -18,7 +18,7 @@ class DoorMotionDetection(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
 
-#     def initialize(self):
+    def initialize(self):
 
 #         try:
 #             GPIO.setmode(GPIO.BCM)
@@ -33,7 +33,7 @@ class DoorMotionDetection(MycroftSkill):
 #             self.schedule_repeating_event(self.handle_motion(),
 #                                           None, 0.1, 'check_motion')
 #             self.register_intent(detection.motion.door, self.handle_detection_motion_door)
-#             my_setting = self.settings.get('my_setting')
+            my_setting = self.settings.get('my_setting')
 
     def handle_motion(self, message):
         if GPIO.event_detected(MOTION):
