@@ -19,7 +19,7 @@ class DoorMotionDetection(MycroftSkill):
         MycroftSkill.__init__(self)
         
     def initialize(self):
-        #self.register_intent(detection.motion.door, self.handle_detection_motion_door)
+        self.register_intent(detection.motion.door, self.handle_detection_motion_door)
         
         try:
             GPIO.setmode(GPIO.BCM)
@@ -59,7 +59,7 @@ class DoorMotionDetection(MycroftSkill):
             
             
 
-    @intent_file_handler('detection.motion.door.intent')
+   # @intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
