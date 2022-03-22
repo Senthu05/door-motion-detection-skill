@@ -20,19 +20,20 @@ class DoorMotionDetection(MycroftSkill):
 
     def initialize(self):
 
-#         try:
-#             GPIO.setmode(GPIO.BCM)
-#             GPIO.setwarnings(False)
-#             GPIO.setup(LED, GPIO.OUT)
-#             GPIO.setup(MOTION, GPIO.IN)  # enable the pull-up ( pull_up_down=GPIO.PUD_down)
-#             GPIO.add_event_detect(MOTION, GPIO.RISING, bouncetime=500)  # increase the bouncetime to avoid the event frequently detection
-#         except:
-#             self.log.warning("Can't initialize GPIO - skill will not load")
-#             self.speak_dialog("error.initialise")  # create the error.initialise.dialog file
-#         finally:
-#             self.schedule_repeating_event(self.handle_motion(),
-#                                           None, 0.1, 'check_motion')
-            self.register_intent(detection.motion.door.intent, self.handle_detection_motion_door)
+        try:
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setwarnings(False)
+            GPIO.setup(LED, GPIO.OUT)
+            GPIO.setup(MOTION, GPIO.IN)  # enable the pull-up ( pull_up_down=GPIO.PUD_down)
+            GPIO.add_event_detect(MOTION, GPIO.RISING, bouncetime=500)  # increase the bouncetime to avoid the event frequently detection
+        except:
+            #self.log.warning("Can't initialize GPIO - skill will not load")
+            self.speak_dialog("error.initialise")  # create the error.initialise.dialog file
+            pass
+        finally:
+            self.schedule_repeating_event(self.handle_motion(),
+                                          None, 0.1, 'check_motion')
+            #self.register_intent(detection.motion.door.intent, self.handle_detection_motion_door)
             my_setting = self.settings.get('my_setting')
 
     def handle_motion(self, message):
@@ -54,7 +55,7 @@ class DoorMotionDetection(MycroftSkill):
 
             self.remove_event_detect(MOTION)  # clear the event
 
-    #@intent_file_handler('detection.motion.door.intent')
+    @intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
