@@ -54,7 +54,7 @@ class DoorMotionDetection(MycroftSkill):
 
             self.remove_event_detect(MOTION)  # clear the event
 
-    @intent_file_handler('detection.motion.door.intent')
+    #@intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
