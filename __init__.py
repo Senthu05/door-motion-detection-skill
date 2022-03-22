@@ -1,16 +1,16 @@
 from mycroft import MycroftSkill, intent_file_handler
-# from mycroft.messagebus.message import Message
-# from mycroft.util import play_wav
+from mycroft.messagebus.message import Message
+from mycroft.util import play_wav
 
 import time
 import RPi.GPIO as GPIO
 
-# REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
-# GPIO pins
-# MOTION = 23
-# LED = 25
-# detect_time = []
-# MOTION_GAP = 60 # second
+REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
+GPIO pins
+MOTION = 23
+LED = 25
+detect_time = []
+MOTION_GAP = 60 # second
 
 
 class DoorMotionDetection(MycroftSkill):
@@ -63,6 +63,7 @@ class DoorMotionDetection(MycroftSkill):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
         time = ''
+        play_wav(REMINDER_PING)  # play the beep
         self.speak_dialog('detection.motion.door', data={
             'day': day,
             'day_of_time': day_of_time,
