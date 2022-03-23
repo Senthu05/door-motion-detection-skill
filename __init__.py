@@ -21,15 +21,12 @@ class DoorMotionDetection(MycroftSkill):
     def initialize(self):
         my_setting = self.settings.get('my_setting')
 
-        try:
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setwarnings(False)
-            GPIO.setup(LED, GPIO.OUT)
-            GPIO.setup(MOTION, GPIO.IN)  # enable the pull-up ( pull_up_down=GPIO.PUD_down)
-            GPIO.add_event_detect(MOTION, GPIO.RISING, bouncetime=500)  # increase the bouncetime to avoid the event frequently detection
-        except: 
-            self.speak('I still at try catch')
-            pass
+#         try:
+#             GPIO.setmode(GPIO.BCM)
+#             GPIO.setwarnings(False)
+#             GPIO.setup(LED, GPIO.OUT)
+#             GPIO.setup(MOTION, GPIO.IN)  # enable the pull-up ( pull_up_down=GPIO.PUD_down)
+#             GPIO.add_event_detect(MOTION, GPIO.RISING, bouncetime=500)  # increase the bouncetime to avoid the event frequently detection
         
 #         except GPIO.error:
 #             #self.log.warning("Can't initialize GPIO - skill will not load")
@@ -64,6 +61,7 @@ class DoorMotionDetection(MycroftSkill):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
         time = ''
+        self.speak('I saw May when she get in')
         self.speak_dialog('detection.motion.door', data={
             'day': day,
             'day_of_time': day_of_time,
