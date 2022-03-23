@@ -19,7 +19,7 @@ class DoorMotionDetection(MycroftSkill):
         MycroftSkill.__init__(self)
 
     def initialize(self):
-        my_setting = self.settings.get('my_setting')
+        #my_setting = self.settings.get('my_setting')
         self.settings_change_callback = self.on_settings_changed
         self.get_settings()
 
