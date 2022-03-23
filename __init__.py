@@ -26,7 +26,6 @@ class DoorMotionDetection(MycroftSkill):
             GPIO.setwarnings(False)
             GPIO.setup(LED, GPIO.OUT)
             GPIO.setup(MOTION, GPIO.IN)  # enable the pull-up ( pull_up_down=GPIO.PUD_down)
-          #  GPIO.add_event_detect(MOTION, GPIO.RISING, bouncetime=500)  # increase the bouncetime to avoid the event frequently detection
         
         except GPIO.error:
             #self.log.warning("Can't initialize GPIO - skill will not load")
@@ -35,6 +34,7 @@ class DoorMotionDetection(MycroftSkill):
         finally:
             self.schedule_repeating_event(self.handle_motion,
                                           None, 0.1, 'check_motion')
+            GPIO.add_event_detect(MOTION, GPIO.RISING, bouncetime=500)  # increase the bouncetime to avoid the event frequently detection
             #self.register_intent(detection.motion.door.intent, self.handle_detection_motion_door)
           
 
