@@ -61,7 +61,7 @@ class DoorMotionDetection(MycroftSkill):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
         time = ''
-        self.speak('I saw May when she get in')
+        self.speak('I saw May... when she get in the lab')
 #         self.speak_dialog('detection.motion.door', data={
 #             'day': day,
 #             'day_of_time': day_of_time,
