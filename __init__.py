@@ -32,7 +32,7 @@ class DoorMotionDetection(MycroftSkill):
         
         except:
             self.log.warning("Can't initialize GPIO - skill will not load")
-            self.speak_dialog("error.initialise")  # create the error.initialise.dialog file
+            self.speak_dialog("error.initialize")  # create the error.initialise.dialog file
             
         finally:    
             self.schedule_repeating_event(self.handle_motion,
