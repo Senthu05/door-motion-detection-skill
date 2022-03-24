@@ -50,7 +50,7 @@ class DoorMotionDetection(MycroftSkill):
             detect_gap = now - detect_time[-1] if len(detect_time) >= 1 else now
             detect_time.append(now)  # append the time in the list
 
-            if detect_gap == MOTION_GAP:
+            if detect_gap < MOTION_GAP:
                 self.speak('I still can see the motion at your door')
                 detect_time.clear()
 
