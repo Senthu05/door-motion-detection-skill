@@ -58,7 +58,7 @@ class DoorMotionDetection(MycroftSkill):
                 self.speak_dialog("DoorDetectionDialog")  # need to create a .dialog file
                 self.log.info("GPIO.event_detected")
 
-            self.remove_event_detect(MOTION)  # clear the event
+          #  self.remove_event_detect(MOTION)  # clear the event
 
     @intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
