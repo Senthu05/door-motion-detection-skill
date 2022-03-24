@@ -26,7 +26,7 @@ class DoorMotionDetection(MycroftSkill):
             GPIO.setwarnings(False)
             GPIO.setup(LED, GPIO.OUT)
             GPIO.setup(MOTION, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # enable the pull-up ( pull_up_down=GPIO.PUD_down)
-            GPIO.remove_event_detect(MOTION)
+           # GPIO.remove_event_detect(MOTION)
             GPIO.add_event_detect(MOTION, GPIO.RISING, bouncetime=500)  # increase the bouncetime to avoid the event frequently detection
             
         
