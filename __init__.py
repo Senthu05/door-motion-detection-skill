@@ -2,8 +2,8 @@ from mycroft import MycroftSkill, intent_file_handler
 from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
 
-#import time
-from datetime import datetime
+import time
+#from datetime import datetime
 import RPi.GPIO as GPIO
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
