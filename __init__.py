@@ -1,9 +1,11 @@
 from mycroft import MycroftSkill, intent_file_handler
 from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
+from mycroft.util.format import (nice_date, nice_duration, nice_time,
+                                 date_time_format)
 
 import time
-#from datetime import datetime
+import datetime
 import RPi.GPIO as GPIO
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
@@ -45,22 +47,27 @@ class DoorMotionDetection(MycroftSkill):
 
     def handle_motion(self, message):
         if GPIO.event_detected(MOTION):
-            now = time.time()  # catch the current time
-           # now = datetime.now()
-            next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now
+            #now = time.time()  # catch the current time
+            now = datetime.datetime.now()
+            next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now # calculate the gap 
+            bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
+            
             self.log.info("time gap")
             self.log.info(next_bell_gap)
 
-            if next_bell_gap > Bell_GAP:
+            if bell_gap_sec > Bell_GAP:
                 self.speak_dialog("First.Bell")
                 record_list.append(now)  # append the time in the list
 
-            if next_bell_gap < Bell_GAP:
+            if bell_gap_sec < Bell_GAP:
                 self.speak_dialog("Next.Bell")
+                
+            if len(record_list) > 5:   # remove the list if more than 5 record
+                record_list.pop(0)  
 
-            for x in record_list:
-                if (now - x) > list_clear:
-                    record_list.clear()
+#             for x in record_list:
+#                 if (now - x) > list_clear:
+#                     record_list.clear()
 
     @intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
@@ -72,7 +79,10 @@ class DoorMotionDetection(MycroftSkill):
 #             'day_of_time': day_of_time,
 #             'time': time
 #         })
-        self.speak_dialog('detection.motion.door', {"time": record_list[-1]})
+        dt = record_list[-1]            # get the last value of list
+        s = nice_time(dt, self.lang, speech=True,
+                      use_24hour=self.use_24hour, use_ampm=True) # convet to Pronounce datetime objects
+        self.speak_dialog('detection.motion.door', {"time": s})
 
 
 def create_skill():
