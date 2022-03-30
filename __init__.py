@@ -3,7 +3,7 @@ from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
 
 #import time
-import datetime
+from datetime import datetime
 import RPi.GPIO as GPIO
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
