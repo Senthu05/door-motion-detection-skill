@@ -45,8 +45,8 @@ class DoorMotionDetection(MycroftSkill):
 
     def handle_motion(self, message):
         if GPIO.event_detected(MOTION):
-            #now = time.time()  # catch the current time
-            now = datetime.now()
+            now = time.time()  # catch the current time
+           # now = datetime.now()
             next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now
             self.log.info("time gap")
             self.log.info(next_bell_gap)
