@@ -2,7 +2,8 @@ from mycroft import MycroftSkill, intent_file_handler
 from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
 
-import time
+#import time
+import datetime
 import RPi.GPIO as GPIO
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
@@ -43,7 +44,8 @@ class DoorMotionDetection(MycroftSkill):
 
     def handle_motion(self, message):
         if GPIO.event_detected(MOTION):
-            now = time.time()  # catch the current time
+            #now = time.time()  # catch the current time
+            now = datetime.now()
             next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now
 
             if next_bell_gap > Bell_GAP:
