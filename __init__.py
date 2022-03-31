@@ -16,7 +16,7 @@ from mycroft.util.time import now_utc, to_local, now_local
 MOTION = 18
 LED = 25
 record_list = []
-Bell_GAP = 60  # second
+Bell_GAP = 59.0  # second
 # Bell_GAP = 0:02:00.00
 list_clear = 3600  # list will be clear data more than an hour
 
