@@ -1,9 +1,9 @@
 import time
 import datetime
-import datetime, timedelta
 import RPi.GPIO as GPIO
 
 from mycroft import MycroftSkill, intent_file_handler
+from datetime import datetime, timedelta
 from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
 from mycroft.util.format import (nice_date, nice_duration, nice_time,
