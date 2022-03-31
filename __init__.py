@@ -70,10 +70,11 @@ class DoorMotionDetection(MycroftSkill):
             self.log.info("time gap")
             self.log.info(bell_gap_sec)
 
-            if bell_gap_sec < Bell_GAP_1 or bell_gap_sec > Bell_GAP_2:
+            if bell_gap_sec > Bell_GAP_2:
                 self.speak_dialog("First.Bell")
                 record_list.append(now)  # append the time in the list
-
+            if bell_gap_sec < Bell_GAP_1:
+                self.speak_dialog("First.Bell")
             if Bell_GAP_1 <= bell_gap_sec <= Bell_GAP_2:
                 self.speak_dialog("Next.Bell")
 
