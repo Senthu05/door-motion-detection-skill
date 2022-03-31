@@ -8,8 +8,6 @@ from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
 from mycroft.util.format import (nice_date, nice_duration, nice_time,
                                  date_time_format)
-from mycroft.util.parse import (extract_datetime, fuzzy_match, extract_number,
-                                normalize)
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
 
@@ -58,7 +56,7 @@ class DoorMotionDetection(MycroftSkill):
             next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now  # calculate the gap
             # bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
 
-            bell_gap_sec = deserialize(next_bell_gap) / timedelta(seconds=1)  # convert to seconds
+            bell_gap_sec = self.deserialize(next_bell_gap) / timedelta(seconds=1)  # convert to seconds
 
             self.log.info("time gap")
             self.log.info(bell_gap_sec)
