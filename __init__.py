@@ -55,8 +55,12 @@ class DoorMotionDetection(MycroftSkill):
             #next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now  # calculate the gap   
             if len(record_list) >= 1:
                 next_bell_gap = now_local() - record_list[-1]
+                self.log.info("I am at if condition")
             else:
                 next_bell_gap = now - now
+                self.log.info("I am at else condition")
+            self.log.info("next_bell_gap = ")
+            self.log.info(next_bell_gap)
             bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
             
            # bell_gap_sec = next_bell_gap / timedelta(seconds=1)  # convert to seconds
