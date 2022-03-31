@@ -8,6 +8,8 @@ from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
 from mycroft.util.format import (nice_date, nice_duration, nice_time,
                                  date_time_format)
+from mycroft.util.parse import (extract_datetime, fuzzy_match, extract_number,
+                                normalize)
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
 
