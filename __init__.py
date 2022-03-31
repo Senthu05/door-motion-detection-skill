@@ -47,16 +47,17 @@ class DoorMotionDetection(MycroftSkill):
                                           None, 0.1, 'check_motion')
             # self.register_intent(detection.motion.door.intent, self.handle_detection_motion_door)
 
-#     def deserialize(dt):
-#         return datetime.strptime(dt, '%Y%d%m-%H%M%S-%z')
 
     def handle_motion(self, message):
         if GPIO.event_detected(MOTION):
-            # now = time.time()  # catch the current time
-            #now = datetime.now()
-            now = now_local()
+            now = now_local()  # catch the current time in the registered location 
             #record_list.append(now)
-            next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now  # calculate the gap
+            #next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now  # calculate the gap
+            if len(record_list) >= 1:
+                next_bell_gap = now - record_list[-1]
+            else:
+                next_bell_gap = now - now 
+                
             bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
             
 
