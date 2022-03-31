@@ -89,8 +89,11 @@ class DoorMotionDetection(MycroftSkill):
         #             'time': time
         #         })
         dt = record_list[-1]  # get the last value of list
-        s = nice_time(dt, self.lang, speech=True,
-                      use_24hour=True, use_ampm=True)  # convet to Pronounce datetime objects
+        s = nice_time(dt)
+#         s = nice_time(dt, self.lang, speech=True,
+#                       use_24hour=True, use_ampm=True)  # convet to Pronounce datetime objects
+        self.log.info("bell ring time")
+        self.log.info(s)
         self.speak_dialog('detection.motion.door', {"time": s})
 
 
