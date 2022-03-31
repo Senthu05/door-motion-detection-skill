@@ -1,12 +1,13 @@
+import time
+import datetime
+import datetime, timedelta
+import RPi.GPIO as GPIO
+
 from mycroft import MycroftSkill, intent_file_handler
 from mycroft.messagebus.message import Message
 # from mycroft.util import play_wav
 from mycroft.util.format import (nice_date, nice_duration, nice_time,
                                  date_time_format)
-
-import time
-import datetime import datetime, timedelta
-import RPi.GPIO as GPIO
 
 # REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
 
@@ -15,8 +16,8 @@ MOTION = 18
 LED = 25
 record_list = []
 Bell_GAP = 60  # second
-#Bell_GAP = 0:02:00.00
-list_clear = 3600 # list will be clear data more than an hour
+# Bell_GAP = 0:02:00.00
+list_clear = 3600  # list will be clear data more than an hour
 
 
 class DoorMotionDetection(MycroftSkill):
@@ -44,20 +45,19 @@ class DoorMotionDetection(MycroftSkill):
             self.schedule_repeating_event(self.handle_motion,
                                           None, 0.1, 'check_motion')
             # self.register_intent(detection.motion.door.intent, self.handle_detection_motion_door)
-            
+
     def deserialize(dt):
-    return datetime.strptime(dt, '%Y%d%m-%H%M%S-%z')
-          
+        return datetime.strptime(dt, '%Y%d%m-%H%M%S-%z')
 
     def handle_motion(self, message):
         if GPIO.event_detected(MOTION):
-            #now = time.time()  # catch the current time
+            # now = time.time()  # catch the current time
             now = datetime.datetime.now()
-            next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now # calculate the gap 
-            #bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
-            
-            bell_gap_sec = deserialize(next_bell_gap) / timedelta(seconds=1) # convert to seconds
-            
+            next_bell_gap = now - record_list[-1] if len(record_list) >= 1 else now  # calculate the gap
+            # bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
+
+            bell_gap_sec = deserialize(next_bell_gap) / timedelta(seconds=1)  # convert to seconds
+
             self.log.info("time gap")
             self.log.info(bell_gap_sec)
 
@@ -67,27 +67,28 @@ class DoorMotionDetection(MycroftSkill):
 
             if bell_gap_sec < Bell_GAP:
                 self.speak_dialog("Next.Bell")
-                
-            if len(record_list) > 5:   # remove the list if more than 5 record
-                record_list.pop(0)  
 
-#             for x in record_list:
-#                 if (now - x) > list_clear:
-#                     record_list.clear()
+            if len(record_list) > 5:  # remove the list if more than 5 record
+                record_list.pop(0)
+
+            #             for x in record_list:
+
+    #                 if (now - x) > list_clear:
+    #                     record_list.clear()
 
     @intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
         day = message.data.get('day')
         day_of_time = message.data.get('day_of_time')
         time = ''
-#         self.speak_dialog('detection.motion.door', data={
-#             'day': day,
-#             'day_of_time': day_of_time,
-#             'time': time
-#         })
-        dt = record_list[-1]            # get the last value of list
+        #         self.speak_dialog('detection.motion.door', data={
+        #             'day': day,
+        #             'day_of_time': day_of_time,
+        #             'time': time
+        #         })
+        dt = record_list[-1]  # get the last value of list
         s = nice_time(dt, self.lang, speech=True,
-                      use_24hour=self.use_24hour, use_ampm=True) # convet to Pronounce datetime objects
+                      use_24hour=self.use_24hour, use_ampm=True)  # convet to Pronounce datetime objects
         self.speak_dialog('detection.motion.door', {"time": s})
 
 
