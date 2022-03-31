@@ -16,7 +16,7 @@ from mycroft.util.time import now_utc, to_local, now_local
 MOTION = 18
 LED = 25
 record_list = []
-Bell_GAP = 59.0  # second
+Bell_GAP = 15.0  # second
 # Bell_GAP = 0:02:00.00
 list_clear = 3600  # list will be clear data more than an hour
 
@@ -68,11 +68,11 @@ class DoorMotionDetection(MycroftSkill):
             self.log.info("time gap")
             self.log.info(bell_gap_sec)
 
-            if bell_gap_sec > Bell_GAP:
+            if bell_gap_sec < Bell_GAP:
                 self.speak_dialog("First.Bell")
                 record_list.append(now)  # append the time in the list
 
-            if bell_gap_sec < Bell_GAP:
+            if bell_gap_sec > Bell_GAP:
                 self.speak_dialog("Next.Bell")
 
             if len(record_list) > 5:  # remove the list if more than 5 record
