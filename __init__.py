@@ -46,7 +46,7 @@ class DoorMotionDetection(MycroftSkill):
                                           None, 0.1, 'check_motion')
             # self.register_intent(detection.motion.door.intent, self.handle_detection_motion_door)
 
-    def deserialize(dt):
+    def deserialize(self, dt):
         return datetime.strptime(dt, '%Y%d%m-%H%M%S-%z')
 
     def handle_motion(self, message):
