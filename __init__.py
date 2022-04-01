@@ -11,13 +11,13 @@ from mycroft.util.format import (nice_date, nice_duration, nice_time,
                                  date_time_format)
 from mycroft.util.time import now_utc, to_local, now_local
 
-REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') 
+REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
 
 # GPIO pins
 MOTION = 18
 LED = 25
 
-record_list = [] # record the bell time 
+record_list = [] # record the bell time
 Bell_GAP_1 = 15.0  # second
 Bell_GAP_2 = 120.0
 list_clear = 3600  # list will be clear data more than an hour
@@ -47,13 +47,12 @@ class DoorMotionDetection(MycroftSkill):
 
     def handle_motion(self, message):
         if GPIO.event_detected(MOTION):
-            now = now_local()  # catch the current time in the registered location 
-            next_bell_gap = now - (record_list[-1] if len(record_list) >= 1 else now)  # calculate the gap   
-#             if len(record_list) >= 1:
-#                 next_bell_gap = now_local() - record_list[-1]
-#             else:
-#                 next_bell_gap = now - now
-                
+            now = now_local()  # catch the current time in the registered location
+            next_bell_gap = now - (record_list[-1] if len(record_list) >= 1 else now)  # calculate the gap
+            # if len(record_list) >= 1:
+            #     next_bell_gap = now_local() - record_list[-1]
+            # else:
+            #     next_bell_gap = now - now
             bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
 
             if bell_gap_sec > Bell_GAP_2:
@@ -75,6 +74,11 @@ class DoorMotionDetection(MycroftSkill):
             if len(record_list) > 5:  # remove the list if more than 5 record
                 record_list.pop(0)
 
+    def bell_ring(self, number):
+        for x in range(number):
+            play_wav(REMINDER_PING)
+        time.sleep(.4)
+
     @intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
         day = message.data.get('day')
@@ -89,7 +93,6 @@ class DoorMotionDetection(MycroftSkill):
         s = nice_time(dt)
 #         s = nice_time(dt, self.lang, speech=True,
 #                       use_24hour=True, use_ampm=True)  # convet to Pronounce datetime objects
-        self.log.info("bell ring time")
         self.log.info(s)
         self.speak_dialog('detection.motion.door', {"time": s})
 
