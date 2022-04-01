@@ -112,8 +112,6 @@ class DoorMotionDetection(MycroftSkill):
 #                       use_24hour=True, use_ampm=True)  # convet to Pronounce datetime objects
         self.log.info("bell ring time")
         self.log.info(s)
-        play_wav(REMINDER_PING)
-        time.sleep(.4)
         self.speak_dialog('detection.motion.door', {"time": s})
 
 
