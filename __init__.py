@@ -2,6 +2,7 @@ import time
 import datetime
 import RPi.GPIO as GPIO
 
+from os.path import dirname, join
 from mycroft import MycroftSkill, intent_file_handler
 from datetime import datetime, timedelta
 from mycroft.messagebus.message import Message
@@ -9,6 +10,7 @@ from mycroft.util import play_wav
 from mycroft.util.format import (nice_date, nice_duration, nice_time,
                                  date_time_format)
 from mycroft.util.time import now_utc, to_local, now_local
+
 REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
 
 # GPIO pins
