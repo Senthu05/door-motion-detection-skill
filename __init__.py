@@ -74,15 +74,18 @@ class DoorMotionDetection(MycroftSkill):
 
             if bell_gap_sec > Bell_GAP_2:
                 play_wav(REMINDER_PING)
+                time.sleep(.4)
                 self.speak_dialog("First.Bell")
                 record_list.append(now)  # append the time in the list
             if bell_gap_sec < Bell_GAP_1:
                 if len(record_list) == 0:
                   record_list.append(now)
                 play_wav(REMINDER_PING)
+                time.sleep(.4)
                 self.speak_dialog("First.Bell")
             if Bell_GAP_1 <= bell_gap_sec <= Bell_GAP_2:
                 play_wav(REMINDER_PING)
+                time.sleep(.4)
                 self.speak_dialog("Next.Bell")
 
             if len(record_list) > 5:  # remove the list if more than 5 record
@@ -110,6 +113,7 @@ class DoorMotionDetection(MycroftSkill):
         self.log.info("bell ring time")
         self.log.info(s)
         play_wav(REMINDER_PING)
+        time.sleep(.4)
         self.speak_dialog('detection.motion.door', {"time": s})
 
 
