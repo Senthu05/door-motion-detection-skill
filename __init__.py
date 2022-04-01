@@ -28,6 +28,7 @@ class DoorMotionDetection(MycroftSkill):
 
     def initialize(self):
         my_setting = self.settings.get('my_setting')
+        self.log.info("initiliazing")
 
         try:
             GPIO.setmode(GPIO.BCM)
