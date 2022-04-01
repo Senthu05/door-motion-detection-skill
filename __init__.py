@@ -5,12 +5,11 @@ import RPi.GPIO as GPIO
 from mycroft import MycroftSkill, intent_file_handler
 from datetime import datetime, timedelta
 from mycroft.messagebus.message import Message
-# from mycroft.util import play_wav
+from mycroft.util import play_wav
 from mycroft.util.format import (nice_date, nice_duration, nice_time,
                                  date_time_format)
 from mycroft.util.time import now_utc, to_local, now_local
-
-# REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
+REMINDER_PING = join(dirname(__file__), 'twoBeep.wav') # NOT WORKING
 
 # GPIO pins
 MOTION = 18
@@ -71,13 +70,16 @@ class DoorMotionDetection(MycroftSkill):
             self.log.info(bell_gap_sec)
 
             if bell_gap_sec > Bell_GAP_2:
+                play_wav(REMINDER_PING)
                 self.speak_dialog("First.Bell")
                 record_list.append(now)  # append the time in the list
             if bell_gap_sec < Bell_GAP_1:
                 if len(record_list) == 0:
                   record_list.append(now)
+                play_wav(REMINDER_PING)
                 self.speak_dialog("First.Bell")
             if Bell_GAP_1 <= bell_gap_sec <= Bell_GAP_2:
+                play_wav(REMINDER_PING)
                 self.speak_dialog("Next.Bell")
 
             if len(record_list) > 5:  # remove the list if more than 5 record
@@ -104,6 +106,7 @@ class DoorMotionDetection(MycroftSkill):
 #                       use_24hour=True, use_ampm=True)  # convet to Pronounce datetime objects
         self.log.info("bell ring time")
         self.log.info(s)
+        play_wav(REMINDER_PING)
         self.speak_dialog('detection.motion.door', {"time": s})
 
 
