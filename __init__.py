@@ -79,8 +79,8 @@ class DoorMotionDetection(MycroftSkill):
         dt = record_list[-1]  # get the last value of list
         s = nice_time(dt)
         if(dt.date()== now_local().date()):
-            self.speak_dialog("today")
-            self.speak_dialog('detection.motion.door', {"time": s})
+            #self.speak_dialog("today")
+            self.speak_dialog('today' + 'detection.motion.door', {"time": s})
         else:
             self.speak_dialog('detection.motion.door', {"time": s})
         
