@@ -11,12 +11,9 @@ from mycroft.util.format import (nice_date, nice_duration, nice_time,
                                  date_time_format)
 from mycroft.util.time import now_utc, to_local, now_local
 
+
 REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
-
-# GPIO pins
-MOTION = 18
-LED = 25
-
+MOTION = 18   # GPIO pins
 record_list = [] # record the bell time
 Bell_GAP_1 = 15.0  # second
 Bell_GAP_2 = 120.0
@@ -49,28 +46,23 @@ class DoorMotionDetection(MycroftSkill):
         if GPIO.event_detected(MOTION):
             now = now_local()  # catch the current time in the registered location
             next_bell_gap = now - (record_list[-1] if len(record_list) >= 1 else now)  # calculate the gap
-            # if len(record_list) >= 1:
-            #     next_bell_gap = now_local() - record_list[-1]
-            # else:
-            #     next_bell_gap = now - now
             bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
 
             if bell_gap_sec > Bell_GAP_2:
-                play_wav(REMINDER_PING)
-                time.sleep(.4)
+                bell_ring(3)
                 self.speak_dialog("First.Bell")
                 record_list.append(now)  # append the time in the list
+                
             if bell_gap_sec < Bell_GAP_1:
                 if len(record_list) == 0:
                   record_list.append(now)
-                play_wav(REMINDER_PING)
-                time.sleep(.4)
+                bell_ring(3)
                 self.speak_dialog("First.Bell")
+                
             if Bell_GAP_1 <= bell_gap_sec <= Bell_GAP_2:
-                play_wav(REMINDER_PING)
-                time.sleep(.4)
+                bell_ring(2)
                 self.speak_dialog("Next.Bell")
-
+                
             if len(record_list) > 5:  # remove the list if more than 5 record
                 record_list.pop(0)
 
@@ -81,19 +73,8 @@ class DoorMotionDetection(MycroftSkill):
 
     @intent_file_handler('detection.motion.door.intent')
     def handle_detection_motion_door(self, message):
-        day = message.data.get('day')
-        day_of_time = message.data.get('day_of_time')
-        time = ''
-        #         self.speak_dialog('detection.motion.door', data={
-        #             'day': day,
-        #             'day_of_time': day_of_time,
-        #             'time': time
-        #         })
         dt = record_list[-1]  # get the last value of list
         s = nice_time(dt)
-#         s = nice_time(dt, self.lang, speech=True,
-#                       use_24hour=True, use_ampm=True)  # convet to Pronounce datetime objects
-        self.log.info(s)
         self.speak_dialog('detection.motion.door', {"time": s})
 
 
