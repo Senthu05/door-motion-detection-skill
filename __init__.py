@@ -14,7 +14,8 @@ from mycroft.util.time import now_utc, to_local, now_local
 
 REMINDER_PING = join(dirname(__file__), 'twoBeep.wav')
 MOTION = 18   # GPIO pins
-record_list = [] # record the bell time
+LED = 25
+record_list = []       #record the bell time
 Bell_GAP_1 = 15.0  # second
 Bell_GAP_2 = 120.0
 list_clear = 3600  # list will be clear data more than an hour
