@@ -50,18 +50,18 @@ class DoorMotionDetection(MycroftSkill):
             bell_gap_sec = next_bell_gap.total_seconds() # convert to seconds
 
             if bell_gap_sec > Bell_GAP_2:
-                bell_ring(3)
+                self.bell_ring(3)
                 self.speak_dialog("First.Bell")
                 record_list.append(now)  # append the time in the list
                 
             if bell_gap_sec < Bell_GAP_1:
                 if len(record_list) == 0:
                   record_list.append(now)
-                bell_ring(3)
+                self.bell_ring(3)
                 self.speak_dialog("First.Bell")
                 
             if Bell_GAP_1 <= bell_gap_sec <= Bell_GAP_2:
-                bell_ring(2)
+                self.bell_ring(2)
                 self.speak_dialog("Next.Bell")
                 
             if len(record_list) > 5:  # remove the list if more than 5 record
