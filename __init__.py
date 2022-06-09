@@ -74,7 +74,7 @@ class HomecareWithMotion(MycroftSkill):
         bed_timeHour = datetime.strptime(bed_time, "%H%M%S").time()
         wake_timeHour = datetime.strptime(wake_time, "%H%M%S").time()
         current_hour = now.time()
-        if gap_second > first_check_time.total_seconds() and (wake_timeHour < current_hour < bed_timeHour):
+        if (gap_second > first_check_time.total_seconds()) and (wake_timeHour < current_hour < bed_timeHour):
             self.log.info(time_list)
             record_dic.clear()  # clear the dictionary
             record_dic["time interaction"] = now_local()  # record the time (must, to check the different)
